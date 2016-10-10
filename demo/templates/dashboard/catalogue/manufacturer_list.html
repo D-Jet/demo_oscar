@@ -1,0 +1,72 @@
+{% extends 'dashboard/layout.html' %}
+{% load i18n %}
+{% load thumbnail %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li>
+            <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+        </li>
+        <li class="active">{% trans "Manufacturers" %}</li>
+    </ul>
+{% endblock %}
+
+{% block header %}
+    <div class="page-header">
+        <a href="{% url 'dashboard:catalogue-manufacturer-create' %}" class="btn btn-primary btn-lg pull-right"><i class="icon-plus"></i> {% trans "Add manufacturer" %}</a>
+        <h1>{% trans "Manufacturers" %}</h1>
+    </div>
+{% endblock header %}
+
+{% block dashboard_content %}
+    {% if manufacturers %}
+        <table class="table table-striped table-bordered table-hover">
+            <caption><i class="icon-sitemap icon-large"></i>{% trans 'Manufacturers' %}</caption>
+            <thead>
+                <tr>
+                    <th>{% trans "Name" %}</th>
+                    <th>{% trans "Image" %}</th>
+                    <th>{% trans "Description" %}</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for manufacturer in manufacturers %}
+                    <tr>
+                        <td><a href="{% url 'dashboard:catalogue-manufacturer-update' manufacturer.id %}">{{ manufacturer.name }}</a></td>
+                        <td>
+                            {% if manufacturer.image %}
+                                {% with image=manufacturer.image %}
+                                    {% thumbnail image "70x70" upscale=False format="PNG" as thumb %}
+                                    <a href="{% url 'dashboard:catalogue-manufacturer-update' pk=manufacturer.id %}" rel="lightbox_{{ manufacturer.name|default:"-" }}" class="sub-image">
+                                        <img src="{{ thumb.url }}" alt="{{ manufacturer.get_title }}" data-description="{% if image.caption %}{{ image.caption }}{% endif %}">
+                                    </a>
+                                    {% endthumbnail %}
+                                {% endwith %}
+                            {% else %}
+                                —
+                            {% endif %}
+                        </td>
+                        <td><a href="{% url 'dashboard:catalogue-manufacturer-update' manufacturer.id %}">{{ manufacturer.description }}</a></td>
+                        <td>
+                            <div class="btn-toolbar">
+                                <div class="btn-group">
+                                    <button class="btn btn-default dropdown-toggle" type="submit" data-toggle="dropdown" aria-expanded="true">
+                                        {% trans "Actions" %}
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="nav dropdown-menu pull-right">
+                                        <li><a href="{% url 'dashboard:catalogue-manufacturer-update' pk=manufacturer.id %}">{% trans "Edit manufacturer" %}</a></li>
+                                        <li><a href="{% url 'dashboard:catalogue-manufacturer-delete' pk=manufacturer.id %}">{% trans "Delete" %}</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>{% trans "There no manufacturers yet." %}</p>
+    {% endif %}
+{% endblock dashboard_content %}
