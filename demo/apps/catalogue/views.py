@@ -16,9 +16,6 @@ class ProductDetailView(CoreProductDetailView):
     """
     def get_context_data(self, **kwargs):
         ctx = super(ProductDetailView, self).get_context_data(**kwargs)
-        ctx['reviews'] = self.get_reviews()
-        ctx['alert_form'] = self.get_alert_form()
-        ctx['has_active_alert'] = self.get_alert_status()
         ctx['manufacturer'] = self.object.manufacturer
         return ctx
 
