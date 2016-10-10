@@ -1,0 +1,66 @@
+{% extends "flatpages/default.html" %}
+
+{% load i18n %}
+{% load thumbnail %}
+
+{% block title %}
+    {{ title }} | {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+{% endblock breadcrumbs %}
+
+
+
+{% block content %}
+    <div class="inner-page-wrap">
+        <h1 class="inner-page-heading">
+            <span class="inner-page-title">
+                {{ title }}
+            </span>
+        </h1>
+    </div>
+
+
+    {% block flatpage_breadcrumbs %}
+    <div class="container">
+        <div class="breadcrumbs-wrap">
+            <ul class="breadcrumb clearfix">
+                <li>
+                    <a href="{{ homepage_url }}">{% trans "Home" %}</a>
+                </li>
+                <li>
+                    <span class="current">
+                        {{ title }}
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    {% endblock flatpage_breadcrumbs %}
+    
+    <div class="container inner-container">
+
+        <div class="maker-wrap">
+
+            {% for manufacturer in object_list %}
+	            <div class="maker-item">
+	                <a href="#" class="maker-item-link">
+                        {% if manufacturer.image %}
+                            {% with image=manufacturer.image %}
+                                {% thumbnail image "400x400" upscale=False format="PNG" as thumb %}
+                                <a href="#" rel="lightbox_{{ manufacturer.name|default:"-" }}" class="sub-image">
+                                    <img src="{{ thumb.url }}" alt="{{ manufacturer.get_title }}" data-description="{% if image.caption %}{{ image.caption }}{% endif %}">
+                                </a>
+                                {% endthumbnail %}
+                            {% endwith %}
+                        {% else %}
+                            —
+                        {% endif %}
+	                    
+	                </a>
+            	</div>
+            {%endfor %}
+        </div>
+    </div>
+{% endblock %}

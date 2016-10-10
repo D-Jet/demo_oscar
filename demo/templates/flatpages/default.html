@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% load i18n %}
+
+{% block title %}
+    {{ flatpage.title}} | {{ block.super }}
+{% endblock %}
+
+<main>
+    {% block header%}
+    {% endblock %}
+
+    {% block breadcrumbs %}
+
+    {% endblock %}
+
+    {% block content %}
+        <div class="inner-page-wrap">
+            <h1 class="inner-page-heading">
+                <span class="inner-page-title">
+                    {{ flatpage.title }}
+                </span>
+            </h1>
+        </div>
+
+        {% block flatpage_breadcrumbs %}
+            <div class="container">
+                <div class="breadcrumbs-wrap">
+                    <ul class="breadcrumb clearfix">
+                        <li>
+                            <a href="{{ homepage_url }}">{% trans "Home" %}</a>
+                        </li>
+                        <li>
+                            <span class="current">
+                                {{ flatpage.title }}
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        {% endblock flatpage_breadcrumbs %}
+
+        <div class="container inner-container">
+            <div class="row">
+                <div class="col-sm-12">
+                    {{ flatpage.content }}
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+
+</main>
+            
