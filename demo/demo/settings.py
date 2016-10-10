@@ -29,7 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.flatpages',
 
     'widget_tweaks',
-] + get_core_apps(['apps.catalogue'])
+] + get_core_apps(['apps.catalogue', 'apps.dashboard', 'apps.dashboard.catalogue'])
 
 SITE_ID = 1
 OSCAR_DEFAULT_CURRENCY = 'UAH'
