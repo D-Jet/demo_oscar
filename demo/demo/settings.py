@@ -1,5 +1,7 @@
 import os
 
+from django.utils.translation import ugettext_lazy as _
+
 from oscar.defaults import *
 from oscar import (
     OSCAR_MAIN_TEMPLATE_DIR,
@@ -27,9 +29,10 @@ INSTALLED_APPS = [
     'django.contrib.flatpages',
 
     'widget_tweaks',
-] + get_core_apps()
+] + get_core_apps(['apps.catalogue'])
 
 SITE_ID = 1
+OSCAR_DEFAULT_CURRENCY = 'UAH'
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -113,14 +116,19 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru_RU'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Kiev'
 
 USE_I18N = True
 
 USE_L10N = True
 
 USE_TZ = True
+
+LANGUAGES = (
+    ('ru', _('Russian')),
+    #('en', _('English')),
+) 
 
 STATIC_URL = '/static/'
