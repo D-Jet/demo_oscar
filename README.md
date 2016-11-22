@@ -8,7 +8,6 @@ All other requirements come with oscar (pillow, django-1.9, haystack, etc).
 2. Create database:
 
    ```bash
-   demo/manage.py makemigrations
    demo/manage.py migrate
    ```
 
